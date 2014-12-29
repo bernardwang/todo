@@ -2,22 +2,27 @@
   "name": "todo",
   "version": "1.0.0",
   "description": "A simple MEAN stack Todo App",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bw-vbnm/todo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bw-vbnm/todo/issues"
   },
   "author": "Bernard Wang",
   "license": "MIT",
   "dependencies": {
-    "body-parser": "~1.8.1",
-    "cookie-parser": "~1.3.3",
-    "debug": "~2.0.0",
     "express": "~4.9.0",
     "hjs": "~0.0.6",
+    "body-parser": "~1.8.1",
+    "method-override": "^2.3.0",
     "mongodb": "^1.4.26",
     "mongoose": "^3.8.21",
     "morgan": "~1.3.0",
-    "serve-favicon": "~2.1.3"
   },
   "devDependencies": {
     "del": "^1.1.1",
