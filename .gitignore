@@ -39,3 +39,5 @@ Thumbs.db
 # Node dependency directory #
 ######################
 node_modules
+bourbon
+sass
