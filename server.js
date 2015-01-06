@@ -9,7 +9,6 @@ var methodOverride = require('method-override');
 ///// config /////
 var port = process.env.PORT || 3000; 
 
-// connect to mongodb
 var db = require('./config/db');
 mongoose.connect(db.url); 
 var db = mongoose.connection;
@@ -29,7 +28,7 @@ var Todo = require('./app/models/todo.js');
 
 ///// routes /////
 require('./app/routes/api.js')(app);
-require('./app/routes/index.js');
+require('./app/routes/index.js')(app);
 
 ///// start /////
 app.listen(port);
