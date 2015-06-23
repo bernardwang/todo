@@ -1,6 +1,7 @@
 'use strict';
 
 var app = angular.module('todoApp', ['ngResource','ngRoute'])
+
 app.config(['$routeProvider', '$locationProvider', 
     function($routeProvider, $locationProvider) {
         $routeProvider
@@ -18,6 +19,4 @@ app.config(['$routeProvider', '$locationProvider',
         .otherwise({
             redirectTo: '/'
         });
-    
-        //$locationProvider.html5Mode(true);
 }]);

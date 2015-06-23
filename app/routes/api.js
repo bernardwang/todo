@@ -2,23 +2,22 @@
 var Todo = require('../models/todo.js');
 
 module.exports = function(app) {
-    app.get('/api/todo', function(req, res) {
+    
+    app.get('/api/todos', function(req, res) {
         Todo.find(function(err, todos) {
             if (err)
                 res.send(err);
-            res.json(todos); // return all nerds in JSON format
+            res.json(todos); 
         });
     });
     
     app.post('/api/todos', function(req, res) {
-        // create a todo, information comes from AJAX request from Angular
         Todo.create({
-            text : req.body.text,
-            done : false
+            name : req.body.txt,
+            done : false,   
         }, function(err, todo) {
             if (err)
                 res.send(err);
-            // get and return all the todos after you create another
             Todo.find(function(err, todos) {
                 if (err)
                     res.send(err);
@@ -26,19 +25,36 @@ module.exports = function(app) {
             });
         });
     });
+   
+    app.put('/api/todos/:id', function(req, res) {
+        Todo.findById( req.param('id'), function(err, todo) {
+            if (err)
+                res.send(err);
+            todo.name = req.body.name;  
+            todo.done = req.body.done;
+            todo.save(function(err) {
+                if (err)
+                    res.send(err);
+                res.json({ message: 'Successfully updated' });
+            });
+        });
+    }); 
     
-    app.delete('/api/todos/:todo_id', function(req, res) {
+    app.delete('/api/todos/:id', function(req, res) {
         Todo.remove({
-            _id : req.params.todo_id
+            _id : req.params.id    
         }, function(err, todo) {
             if (err)
                 res.send(err);
-            // get and return all the todos after you create another
             Todo.find(function(err, todos) {
                 if (err)
                     res.send(err)
                 res.json(todos);
             });
         });
+    });
+    
+    app.delete('/api/todos/', function(req, res) {
+        Todo.find().remove().exec();    
     });
 }

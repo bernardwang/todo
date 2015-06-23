@@ -1,5 +1,9 @@
 // define todo model
 var mongoose = require('mongoose');
-var Todo = mongoose.model('Todo', {
-    text : String
+
+var TodoSchema = new mongoose.Schema({
+    name : String,
+    done : Boolean,
 });
+
+module.exports = mongoose.model('Todo', TodoSchema);
