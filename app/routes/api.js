@@ -30,12 +30,21 @@ module.exports = function(app) {
         Todo.findById( req.param('id'), function(err, todo) {
             if (err)
                 res.send(err);
+            var d_same = (todo.done === req.body.done);
             todo.name = req.body.name;  
             todo.done = req.body.done;
             todo.save(function(err) {
                 if (err)
                     res.send(err);
-                res.json({ message: 'Successfully updated' });
+                if (d_same)
+                    res.json({ message: '' });
+                else {
+                    Todo.find(function(err, todos) {
+                        if (err)
+                            res.send(err)
+                        res.json(todos);
+                    });
+                }
             });
         });
     }); 
@@ -55,6 +64,11 @@ module.exports = function(app) {
     });
     
     app.delete('/api/todos/', function(req, res) {
-        Todo.find().remove().exec();    
+        Todo.find().remove().exec();
+        Todo.find(function(err, todos) {
+            if (err)
+                res.send(err)
+            res.json(todos);
+        });
     });
 }

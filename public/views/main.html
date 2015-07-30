@@ -1,10 +1,16 @@
 <section class="container">
     <h2>Todo</h2>
     
-    <p ng-repeat="todo in todos track by $index">
-        <input type="checkbox" ng-change="updateTodo(todo)" ng-model="todo.done"/>
-        <input type="text" ng-change="updateTodo(todo)" ng-model="todo.name">
+    <p ng-repeat="todo in reverse(todos) track by $index">
+        <input type="checkbox" ng-change="updateDone(todo)" ng-model="todo.done"/>
+        <input type="text" ng-change="updateText(todo)" ng-model="todo.name">
         <button ng-click="removeTodo(todo)"> X </button>
+    </p>
+    
+    <p ng-repeat="d_todo in reverse(done_todos) track by $index">
+        <input type="checkbox" ng-change="updateDone(d_todo)" ng-model="d_todo.done"/>
+        <input type="text" ng-change="updateText(d_todo)" ng-model="d_todo.name">
+        <button ng-click="removeTodo(d_todo)"> X </button>
     </p>
     
     <form ng-submit="addTodo()">

@@ -8,8 +8,7 @@ var gulp = require('gulp'),
 	concat = require('gulp-concat'),
 	del = require('del');
 
-//gulp.task('default', ['clean'], function() {
-gulp.task('default', [], function() {
+gulp.task('default', ['clean'], function() {
     gulp.start('style', 'script');
 });
 
