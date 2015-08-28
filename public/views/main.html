@@ -1,17 +1,23 @@
 <section class="container">
-    <h2>Todo</h2>
+    <h2>Todo List</h2>
     
-    <p ng-repeat="todo in reverse(todos) track by $index">
-        <input type="checkbox" ng-change="updateDone(todo)" ng-model="todo.done"/>
-        <input type="text" ng-change="updateText(todo)" ng-model="todo.name">
-        <button ng-click="removeTodo(todo)"> X </button>
-    </p>
+    <ul ng-repeat="todo in reverse(todos) track by $index">
+        <li class="todo-item">
+            <input type="checkbox" ng-change="updateDone(todo)" ng-model="todo.done"/>
+            <input type="text" ng-change="updateText(todo)" ng-model="todo.name">
+            <button ng-click="removeTodo(todo)" class="remove-button"> x </button>
+        </li>
+    </ul>
     
-    <p ng-repeat="d_todo in reverse(done_todos) track by $index">
-        <input type="checkbox" ng-change="updateDone(d_todo)" ng-model="d_todo.done"/>
-        <input type="text" ng-change="updateText(d_todo)" ng-model="d_todo.name">
-        <button ng-click="removeTodo(d_todo)"> X </button>
-    </p>
+    <br><br>
+    
+    <ul ng-repeat="d_todo in reverse(done_todos) track by $index">
+        <li class="todo-item">
+            <input type="checkbox" ng-change="updateDone(d_todo)" ng-model="d_todo.done"/>
+            <input type="text" ng-change="updateText(d_todo)" ng-model="d_todo.name">
+            <button ng-click="removeTodo(d_todo)" class="remove-button"> x </button>
+        </li>
+    </ul>
     
     <form ng-submit="addTodo()">
         <input type="text" ng-model="formData.txt"></input> 
