@@ -4,16 +4,21 @@ var app = angular.module('todoApp');
 
 app.controller('MainCtrl', function ($scope, $http) {
     
-    $scope.formData = {};
+    $scope.formData = {};   // add todo text box
     
-    function isNotDone(todo) {
-        if(todo && todo.done === false) return true;   
-    }
+    // landing on the page, get all todos and show them
+    // self invoking func
+    $scope.getTodo = function() {
+        $http.get('/api/todos')
+            .success(function(data) {
+                updateList(data);
+            })
+            .error(function(data) {
+                console.log('Error: ' + data);
+            });
+    }();
     
-    function isDone(todo) {
-        if(todo && todo.done === true) return true;   
-    }
-    
+    // sorts lists by done and not done
     function updateList(data) {
         if(data && data.length > 0) {
             $scope.todos = data.filter(isNotDone);
@@ -24,31 +29,12 @@ app.controller('MainCtrl', function ($scope, $http) {
             $scope.done_todos = [];
         }
     }
-    
-    // display todos most recent first
-    $scope.reverse = function(array) {
-        if(array && array.length > 0) {
-            return array.slice().reverse();
-        }
-        return [];
-    }
 
-    // landing on the page, get all todos and show them
-    $scope.getTodo = function() {
-        $http.get('/api/todos')
-            .success(function(data) {
-                updateList(data);
-            })
-            .error(function(data) {
-                console.log('Error: ' + data);
-            });
-    }();
-
-    // submitting new todo
+    // submit new todo
     $scope.addTodo = function() {
         $http.post('/api/todos', $scope.formData)
             .success(function(data) {
-                $scope.formData = {}; // clear the form so our user is ready to enter another
+                $scope.formData = {}; // clear the form so user can enter another
                 updateList(data);
             })
             .error(function(data) {
@@ -56,7 +42,7 @@ app.controller('MainCtrl', function ($scope, $http) {
             });
     };
     
-    // changing todo text
+    // change todo text
     $scope.updateText = function(todo) {
         $http.put('/api/todos/' + todo._id, todo)
             .success(function(data) {
@@ -67,7 +53,7 @@ app.controller('MainCtrl', function ($scope, $http) {
             });
     };
     
-    // changing todo done
+    // change todo done
     $scope.updateDone = function(todo) {
         $http.put('/api/todos/' + todo._id, todo)
             .success(function(data) {
@@ -100,7 +86,7 @@ app.controller('MainCtrl', function ($scope, $http) {
                     console.log('Error: ' + data);
                 }); 
         });
-        $scope.done_todos = [];
+        $scope.done_todos = []; // reset list
     }
     
     // delete all todos
@@ -112,6 +98,23 @@ app.controller('MainCtrl', function ($scope, $http) {
             .error(function(data) {
                 console.log('Error: ' + data);
             }); 
+    }
+    
+    // reverse to display most recent todos first
+    $scope.reverse = function(array) {
+        if(array && array.length > 0) {
+            return array.slice().reverse();
+        }
+        return [];
+    }
+     
+    // filter funcs
+    function isDone(todo) {
+        if(todo && todo.done === true) return true;   
+    }
+    
+    function isNotDone(todo) {
+        if(todo && todo.done === false) return true;   
     }
     
 });

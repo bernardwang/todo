@@ -1,9 +1,10 @@
 'use strict';
 
-var app = angular.module('todoApp', ['ngResource','ngRoute'])
+var app = angular.module('todoApp', ['ngResource','ngRoute']);
 
-app.config(['$routeProvider', '$locationProvider', 
-    function($routeProvider, $locationProvider) {
+// angular views
+app.config(['$routeProvider', 
+    function($routeProvider) {
         $routeProvider
         
         // home page
@@ -11,10 +12,12 @@ app.config(['$routeProvider', '$locationProvider',
             templateUrl: 'views/main.html',
             controller: 'MainCtrl'
         })
+        
         // about page
         .when('/about', {
             templateUrl: 'views/about.html',
         })
+        
         // 404
         .otherwise({
             redirectTo: '/'

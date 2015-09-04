@@ -1,6 +1,13 @@
 <section class="container">
     <h2>Todo List</h2>
     
+    <form class="input-field" ng-submit="addTodo()" >
+        <input type="text" placeholder="Pick up eggs..." ng-model="formData.txt"></input> 
+        <!-- <input type="submit" value="Add Todo"> -->
+    </form>
+
+    <br><br>
+    
     <ul ng-repeat="todo in reverse(todos) track by $index">
         <li class="todo-item">
             <input type="checkbox" ng-change="updateDone(todo)" ng-model="todo.done"/>
@@ -18,11 +25,6 @@
             <button ng-click="removeTodo(d_todo)" class="remove-button"> x </button>
         </li>
     </ul>
-    
-    <form ng-submit="addTodo()">
-        <input type="text" ng-model="formData.txt"></input> 
-        <input type="submit" value="Add Todo"> 
-    </form>
 
     <button ng-click="removeDone()"> Clear Completed </button>
     <button ng-click="removeAll()"> Clear All </button>

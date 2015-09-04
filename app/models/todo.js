@@ -1,4 +1,4 @@
-// define todo model
+///// todo model /////
 var mongoose = require('mongoose');
 
 var TodoSchema = new mongoose.Schema({
